@@ -21,6 +21,7 @@ class Window
 
 		bool shoudlClose() { return glfwWindowShouldClose(window); }
 
+		void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 		
 	private:
 		
@@ -39,4 +40,12 @@ class Window
 };
 
 }//End Namespace 
+
+////This file's code is from Brendan Galea's vulkan tutorial
+// 
+// (2020, 13 december). Device Setup & Pipeline cont. - Vulkan Game Engine Tutorial 03. https://www.youtube.com/watch?v=LYKlEIzGmW4
+//     
+// tutorial03 - Google Drive. (s. d.). https://drive.google.com/drive/folders/1Hs-3v_AFVbASmymY4I2UB-JWvW3-hTAV
+// 
+/////
 

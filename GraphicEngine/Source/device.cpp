@@ -48,12 +48,12 @@ void DestroyDebugUtilsMessengerEXT(
 
 // class member functions
 Device::Device(Window &window) : window{window} {
-  createInstance();
-  setupDebugMessenger();
-  createSurface();
-  pickPhysicalDevice();
-  createLogicalDevice();
-  createCommandPool();
+  createInstance();//initialize the vulkan library
+  setupDebugMessenger();//Setup validation layer (because by default vulkan does a very limited error checking)
+  createSurface();//Relies on glfw, connection beetween our window and vulkan's result display
+  pickPhysicalDevice();//The physical device is the system's graphic device
+  createLogicalDevice();//What features of our phisycal device we want to use
+  createCommandPool();//Help with command buffer allocation
 }
 
 Device::~Device() {
@@ -120,10 +120,57 @@ void Device::pickPhysicalDevice() {
 
   for (const auto &device : devices) {
     if (isDeviceSuitable(device)) {
-      physicalDevice = device;
-      break;
+
+        auto props = VkPhysicalDeviceProperties{};
+    vkGetPhysicalDeviceProperties(device, &props);
+
+    // Determine the type of the physical device
+    if (props.deviceType == VkPhysicalDeviceType::VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+    {
+        // You've got yourself a discrete GPU. (ideal)
+        physicalDevice = device;
+
+        break;
+    }
+    else if (props.deviceType == VkPhysicalDeviceType::VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU)
+    {
+        // You've got yourself an integrated GPU.
+    }
+    else
+    {
+        // I don't even...
+    }
+
+      
+      
     }
   }
+;
+
+
+
+   /*
+
+    // Determine the available device local memory.
+    auto memoryProps = VkPhysicalDeviceMemoryProperies{};
+    vkGetPhysicalDeviceMemoryProperties(device, &memoryProps);
+
+    auto heapsPointer = memoryProps.memoryHeaps;
+    auto heaps = std::vector<VkMemoryHeap>(heapsPointer, heapsPointer + memoryProps.memoryHeapCount);
+
+    for (const auto& heap : heaps)
+    {
+        if (heap.flags & VkMemoryHeapFlagBits::VK_MEMORY_HEAP_DEVICE_LOCAL_BIT)
+        {
+            // Device local heap, should be size of total GPU VRAM.
+            //heap.size will be the size of VRAM in bytes. (bigger is better)
+        }
+
+    }
+
+*/
+
+
 
   if (physicalDevice == VK_NULL_HANDLE) {
     throw std::runtime_error("failed to find a suitable GPU!");
@@ -193,7 +240,7 @@ void Device::createCommandPool() {
   }
 }
 
-void Device::createSurface() { Window.createWindowSurface(instance, &surface_); }
+void Device::createSurface() { window.createWindowSurface(instance, &surface_); }
 
 bool Device::isDeviceSuitable(VkPhysicalDevice device) {
   QueueFamilyIndices indices = findQueueFamilies(device);
@@ -532,3 +579,11 @@ void Device::createImageWithInfo(
 }
 
 }  // namespace lve
+
+////This file's code is from Brendan Galea's vulkan tutorial
+// 
+// (2020, 13 december). Device Setup & Pipeline cont. - Vulkan Game Engine Tutorial 03. https://www.youtube.com/watch?v=LYKlEIzGmW4
+//     
+// tutorial03 - Google Drive. (s. d.). https://drive.google.com/drive/folders/1Hs-3v_AFVbASmymY4I2UB-JWvW3-hTAV
+// 
+/////

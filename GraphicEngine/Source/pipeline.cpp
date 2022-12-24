@@ -7,9 +7,14 @@
 
 namespace Lve {
 
-	Pipeline::Pipeline(const std::string& vertFilepath, const std::string& fragFilepath)
-	{
-		createGraphicPipeline(vertFilepath, fragFilepath);
+	
+
+	Pipeline::Pipeline(
+			Device& device, 
+			const std::string& vertFilepath, 
+			const std::string& fragFilepath,
+		const PipelineConfigInfo& configInfo) : lveDevice{device} {
+		createGraphicPipeline(vertFilepath, fragFilepath, configInfo);
 	}
 
 	std::vector<char> Pipeline::readFile(const std::string& filepath)
@@ -31,7 +36,7 @@ namespace Lve {
 		return buffer;
 	}
 
-	void Pipeline::createGraphicPipeline(const std::string& vertFilepath, const std::string& fragFilepath)
+	void Pipeline::createGraphicPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo)
 	{
 		auto vertCode = readFile(vertFilepath);
 		auto fragCode = readFile(fragFilepath);
@@ -39,5 +44,26 @@ namespace Lve {
 		std::cout << "Vertex Shader Code Size: " << vertCode.size() << '\n';
 		std::cout << "Fragment Shader Code Size: " << fragCode.size() << '\n';
 	}
+
+	void Pipeline::createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule)
+	{
+		VkShaderModuleCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+		createInfo.codeSize = code.size();
+		createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());//a uint32 and a character are not the same size but the data is stored in a vector the default allocator insures that the data satisfy the worst cas alignement requirement 
+
+		if (vkCreateShaderModule(lveDevice.device(), &createInfo, nullptr, shaderModule) != VK_SUCCESS)
+		{
+			throw std::runtime_error("failed to create shader module");
+		}
+	}
+
+	PipelineConfigInfo Pipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
+	{
+		PipelineConfigInfo configInfo{};
+
+		return configInfo;
+	}
+
 }
 
