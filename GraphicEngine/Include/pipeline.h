@@ -14,7 +14,6 @@ namespace Lve {
 struct PipelineConfigInfo {
   VkViewport viewport;
   VkRect2D scissor;
-  VkPipelineViewportStateCreateInfo viewportInfo;
   VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
   VkPipelineRasterizationStateCreateInfo rasterizationInfo;
   VkPipelineMultisampleStateCreateInfo multisampleInfo;
@@ -36,7 +35,7 @@ class Pipeline
 			const std::string& fragFilepath,
 			const PipelineConfigInfo& configInfo);
 
-	~Pipeline() {}
+		~Pipeline();
 
 	Pipeline(const Pipeline&) = delete;
 	void operator=(const Pipeline&) = delete;
@@ -57,7 +56,7 @@ class Pipeline
 
 		Device& lveDevice;//Outlive all the instances of the containing class
 
-		VkPipeline graphicPipeline;
+		VkPipeline graphicsPipeline;
 		VkShaderModule vertShaderModule;
 		VkShaderModule fragShaderModule;
 };

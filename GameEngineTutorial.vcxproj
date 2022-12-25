@@ -147,6 +147,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameEngineTutorial.h" />
     <ClInclude Include="GraphicEngine\Include\device.h" />
+    <ClInclude Include="GraphicEngine\Include\swap_chain.h" />
     <ClInclude Include="GraphicEngine\Include\pipeline.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Apps\FirstApp.cpp" />
     <ClCompile Include="GameEngineTutorial.cpp" />
     <ClCompile Include="GraphicEngine\Source\device.cpp" />
+    <ClCompile Include="GraphicEngine\Source\swap_chain.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GraphicEngine\Source\window.cpp" />
     <ClCompile Include="GraphicEngine\Source\pipeline.cpp" />
