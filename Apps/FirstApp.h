@@ -4,6 +4,7 @@
 #include "../GraphicEngine/Include/pipeline.h"
 #include "../GraphicEngine/Include/device.h"
 #include "../GraphicEngine/Include/swap_chain.h"
+#include "../GraphicEngine/Include/model.h"
 
 
 //std
@@ -27,6 +28,7 @@ namespace Lve {
 
 		void run();
 	private:
+		void loadModels();
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers();
@@ -38,6 +40,7 @@ namespace Lve {
 		std::unique_ptr<Pipeline> lvePipeline;
 		VkPipelineLayout pipelineLayout;
 		std::vector<VkCommandBuffer> commandBuffers;
+		std::unique_ptr<Model> lveModel;
 
 	/*	Pipeline lvePipeline{
 			lveDevice,
@@ -45,6 +48,13 @@ namespace Lve {
 			"shaders/frag.spv",
 			Pipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)
 	};*/
+
+		void sierpinski(std::vector<Model::Vertex>& vertices,
+		int depth,
+		glm::vec2 left,
+		glm::vec2 right,
+		glm::vec2 top);
+		
 };
 
 }

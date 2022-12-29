@@ -85,6 +85,18 @@
       <AdditionalLibraryDirectories>1.3.236.0\Lib;glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuild>
+      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+    </CustomBuild>
+    <CustomBuild>
+      <Message>Compiling shaders</Message>
+      <Outputs>$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects>false</LinkObjects>
+    </CustomBuild>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -105,6 +117,18 @@
       <AdditionalLibraryDirectories>1.3.236.0\Lib;glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuild>
+      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+    </CustomBuild>
+    <CustomBuild>
+      <Message>Compiling shaders</Message>
+      <Outputs>$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects>false</LinkObjects>
+    </CustomBuild>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -121,6 +145,18 @@
       <AdditionalLibraryDirectories>1.3.236.0\Lib;glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuild>
+      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+    </CustomBuild>
+    <CustomBuild>
+      <Message>Compiling shaders</Message>
+      <Outputs>$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects>false</LinkObjects>
+    </CustomBuild>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,6 +177,18 @@
       <AdditionalLibraryDirectories>1.3.236.0\Lib;glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuild>
+      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+    </CustomBuild>
+    <CustomBuild>
+      <Message>Compiling shaders</Message>
+      <Outputs>$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects>false</LinkObjects>
+    </CustomBuild>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Apps\FirstApp.h" />
@@ -149,6 +197,7 @@
     <ClInclude Include="GraphicEngine\Include\device.h" />
     <ClInclude Include="GraphicEngine\Include\swap_chain.h" />
     <ClInclude Include="GraphicEngine\Include\pipeline.h" />
+    <ClInclude Include="GraphicEngine\Include\model.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="GraphicEngine\Include\window.h" />
@@ -161,6 +210,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GraphicEngine\Source\window.cpp" />
     <ClCompile Include="GraphicEngine\Source\pipeline.cpp" />
+    <ClCompile Include="GraphicEngine\Source\model.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameEngineTutorial.rc" />
@@ -170,8 +220,28 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\simple_shader.vert" />
-    <None Include="shaders\simple_shader.frag" />
+    <CustomBuild Include="shaders\simple_shader.vert">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling shaders</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compiling shaders</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling shaders</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compiling shaders</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\%(Identity).spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
+    <CustomBuild Include="shaders\simple_shader.frag">
+      <FileType>Document</FileType>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
