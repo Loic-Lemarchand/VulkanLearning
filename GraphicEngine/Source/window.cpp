@@ -19,9 +19,11 @@ namespace Lve {
 	{
 		glfwInit();
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);//indique de ne pas utiliser opengl
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);//empeche la fenetre de se resizer au demarrage
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); 
 	
 		window = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
+		glfwSetWindowUserPointer(window, this);
+		glfwSetFramebufferSizeCallback(window, frameBufferResizeCallback);
 	}
 
 	void Window::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
@@ -30,6 +32,14 @@ namespace Lve {
 		{
 			throw std::runtime_error("failed to create window surface");
 		}
+	}
+
+	void Window::frameBufferResizeCallback(GLFWwindow* window, int width, int height)
+	{
+		auto lveWindow = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
+		lveWindow->frameBufferResized = true;
+		lveWindow->width = width;
+		lveWindow->height = height;
 	}
 
 }

@@ -45,6 +45,9 @@
     <ClInclude Include="GraphicEngine\Include\model.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicEngine\Include\game_object.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineTutorial.cpp">
@@ -69,6 +72,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GraphicEngine\Source\model.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEngine\Source\game_object.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

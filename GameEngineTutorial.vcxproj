@@ -90,7 +90,7 @@
       </Command>
     </PreBuildEvent>
     <CustomBuild>
-      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -target-env=vulkan -o $(OutDir)\%(Identity).spv %(Identity)</Command>
     </CustomBuild>
     <CustomBuild>
       <Message>Compiling shaders</Message>
@@ -150,7 +150,7 @@
       </Command>
     </PreBuildEvent>
     <CustomBuild>
-      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -o $(OutDir)\%(Identity).spv %(Identity)</Command>
+      <Command>$(VULKAN_SDK)\Bin\glslangValidator -V -target-env=vulkan -o $(OutDir)\%(Identity).spv %(Identity)</Command>
     </CustomBuild>
     <CustomBuild>
       <Message>Compiling shaders</Message>
@@ -195,6 +195,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameEngineTutorial.h" />
     <ClInclude Include="GraphicEngine\Include\device.h" />
+    <ClInclude Include="GraphicEngine\Include\game_object.h" />
     <ClInclude Include="GraphicEngine\Include\swap_chain.h" />
     <ClInclude Include="GraphicEngine\Include\pipeline.h" />
     <ClInclude Include="GraphicEngine\Include\model.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="Apps\FirstApp.cpp" />
     <ClCompile Include="GameEngineTutorial.cpp" />
     <ClCompile Include="GraphicEngine\Source\device.cpp" />
+    <ClCompile Include="GraphicEngine\Source\game_object.cpp" />
     <ClCompile Include="GraphicEngine\Source\swap_chain.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GraphicEngine\Source\window.cpp" />

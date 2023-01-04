@@ -11,12 +11,14 @@
 namespace Lve {
 
 	//The purpose of this class is to take vertex data and allocate the memory and copy the data over to our device's GPU so it can be rendred efficiently
+	//We go for Interlieving position with color attribute
 	class Model
 	{
 	public:
 		struct Vertex
 		{
-			glm::vec2 postion;
+			glm::vec2 position;
+			glm::vec3 color;
 
 			static std::vector<VkVertexInputBindingDescription> getBindingDescription();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescription();
