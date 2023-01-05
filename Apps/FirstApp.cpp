@@ -41,35 +41,80 @@ namespace Lve {
 		vkDeviceWaitIdle(lveDevice.device());
 	}
 
+	std::unique_ptr<Model> createCubeModel(Device& device, glm::vec3 offset) {
+	  std::vector<Model::Vertex> vertices{
+
+		  // left face (white)
+		  {{-.5f, -.5f, -.5f}, {.9f, .9f, .9f}},
+		  {{-.5f, .5f, .5f}, {.9f, .9f, .9f}},
+		  {{-.5f, -.5f, .5f}, {.9f, .9f, .9f}},
+		  {{-.5f, -.5f, -.5f}, {.9f, .9f, .9f}},
+		  {{-.5f, .5f, -.5f}, {.9f, .9f, .9f}},
+		  {{-.5f, .5f, .5f}, {.9f, .9f, .9f}},
+
+		  // right face (yellow)
+		  {{.5f, -.5f, -.5f}, {.8f, .8f, .1f}},
+		  {{.5f, .5f, .5f}, {.8f, .8f, .1f}},
+		  {{.5f, -.5f, .5f}, {.8f, .8f, .1f}},
+		  {{.5f, -.5f, -.5f}, {.8f, .8f, .1f}},
+		  {{.5f, .5f, -.5f}, {.8f, .8f, .1f}},
+		  {{.5f, .5f, .5f}, {.8f, .8f, .1f}},
+
+		  // top face (orange, remember y axis points down)
+		  {{-.5f, -.5f, -.5f}, {.9f, .6f, .1f}},
+		  {{.5f, -.5f, .5f}, {.9f, .6f, .1f}},
+		  {{-.5f, -.5f, .5f}, {.9f, .6f, .1f}},
+		  {{-.5f, -.5f, -.5f}, {.9f, .6f, .1f}},
+		  {{.5f, -.5f, -.5f}, {.9f, .6f, .1f}},
+		  {{.5f, -.5f, .5f}, {.9f, .6f, .1f}},
+
+		  // bottom face (red)
+		  {{-.5f, .5f, -.5f}, {.8f, .1f, .1f}},
+		  {{.5f, .5f, .5f}, {.8f, .1f, .1f}},
+		  {{-.5f, .5f, .5f}, {.8f, .1f, .1f}},
+		  {{-.5f, .5f, -.5f}, {.8f, .1f, .1f}},
+		  {{.5f, .5f, -.5f}, {.8f, .1f, .1f}},
+		  {{.5f, .5f, .5f}, {.8f, .1f, .1f}},
+
+		  // nose face (blue)
+		  {{-.5f, -.5f, 0.5f}, {.1f, .1f, .8f}},
+		  {{.5f, .5f, 0.5f}, {.1f, .1f, .8f}},
+		  {{-.5f, .5f, 0.5f}, {.1f, .1f, .8f}},
+		  {{-.5f, -.5f, 0.5f}, {.1f, .1f, .8f}},
+		  {{.5f, -.5f, 0.5f}, {.1f, .1f, .8f}},
+		  {{.5f, .5f, 0.5f}, {.1f, .1f, .8f}},
+
+		  // tail face (green)
+		  {{-.5f, -.5f, -0.5f}, {.1f, .8f, .1f}},
+		  {{.5f, .5f, -0.5f}, {.1f, .8f, .1f}},
+		  {{-.5f, .5f, -0.5f}, {.1f, .8f, .1f}},
+		  {{-.5f, -.5f, -0.5f}, {.1f, .8f, .1f}},
+		  {{.5f, -.5f, -0.5f}, {.1f, .8f, .1f}},
+		  {{.5f, .5f, -0.5f}, {.1f, .8f, .1f}},
+
+	  };
+	  for (auto& v : vertices) {
+		v.position += offset;
+	  }
+	  return std::make_unique<Model>(device, vertices);
+	}
+
 	void FirstApp::loadGameObjects()
 	{
-		/*std::vector<Model::Vertex> vertices{};
-		sierpinski(vertices, 5, {-0.5f, 0.5f}, {0.5f, 0.5f}, {0.0f, -0.5f});
-		lveModel = std::make_unique<Model>(lveDevice, vertices);*/
+		std::shared_ptr<Model> lveModel = createCubeModel(lveDevice, { .0f, .0f, .0f });
 
-		std::vector<Model::Vertex> vertices
-		{
-			{{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-			{{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-			{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
-		};
+		auto cube = GameObject::createGameObject();
+		cube.model = lveModel;
+		cube.transform.translation = { .0f, .0f, .5f };
+		cube.transform.scale = { .5f, .5f, .5f };
 
-		auto lveModel = std::make_shared<Model>(lveDevice, vertices);
-	
-		auto triangle = GameObject::createGameObject();
-		triangle.model = lveModel;
-		triangle.color = { .1f, .8f, .1f };
-		triangle.transform2D.translation.x = .2f;
-		triangle.transform2D.scale = { 2.f, .5f };
-		triangle.transform2D.rotation = .25f * glm::two_pi<float>();
-
-		gameObjects.push_back(std::move(triangle));
+		gameObjects.push_back(std::move(cube));
 
 	}
 
 
 
-	void FirstApp::sierpinski(
+	/*void FirstApp::sierpinski(
 		std::vector<Model::Vertex>& vertices,
 		int depth,
 		glm::vec2 left,
@@ -88,7 +133,7 @@ namespace Lve {
 			sierpinski(vertices, depth - 1, leftRight, right, rightTop);
 			sierpinski(vertices, depth - 1, leftTop, rightTop, top);
 		}
-	}
+	}*/
 
 	
 }

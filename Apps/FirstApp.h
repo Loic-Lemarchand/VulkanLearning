@@ -41,11 +41,11 @@ namespace Lve {
 			Pipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)
 	};*/
 
-		void sierpinski(std::vector<Model::Vertex>& vertices,
+		/*void sierpinski(std::vector<Model::Vertex>& vertices,
 		int depth,
 		glm::vec2 left,
 		glm::vec2 right,
-		glm::vec2 top);
+		glm::vec2 top);*/
 		
 };
 

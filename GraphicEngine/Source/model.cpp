@@ -67,7 +67,7 @@ namespace Lve {
 		std::vector<VkVertexInputAttributeDescription> attributeDescription(2);
 		attributeDescription[0].binding = 0;
 		attributeDescription[0].location = 0;
-		attributeDescription[0].format = VK_FORMAT_R32G32_SFLOAT;
+		attributeDescription[0].format = VK_FORMAT_R32G32B32_SFLOAT;
 		attributeDescription[0].offset = offsetof(Vertex, position);
 
 		attributeDescription[0].binding = 0;//same location for binding since we're interlieving postion and color
