@@ -1,10 +1,9 @@
 #pragma once
 
 #include "../GraphicEngine/Include/window.h"
-#include "../GraphicEngine/Include/pipeline.h"
 #include "../GraphicEngine/Include/device.h"
-#include "../GraphicEngine/Include/swap_chain.h"
 #include "../GraphicEngine/Include/game_object.h"
+#include "../GraphicEngine/Include/renderer.h"
 
 
 //std
@@ -29,22 +28,11 @@ namespace Lve {
 		void run();
 	private:
 		void loadGameObjects();
-		void createPipelineLayout();
-		void createPipeline();
-		void createCommandBuffers();
-		void freeCommandBuffers();
-		void drawFrame();
-		void recreateSwapChain();
-		void recordCommandBuffer(int imageIndex);
-		void renderGameObjects(VkCommandBuffer commendBuffer);
 
 		Window lveWindow{ WIDTH, HEIGHT, "Vulkan !!!" };
 		Device lveDevice{lveWindow};
-		std::unique_ptr<SwapChain> lveSwapChain;
-		std::unique_ptr<Pipeline> lvePipeline;
-		VkPipelineLayout pipelineLayout;
-		std::vector<VkCommandBuffer> commandBuffers;
 		std::vector<GameObject> gameObjects;
+		Renderer lveRenderer{ lveWindow, lveDevice };
 
 	/*	Pipeline lvePipeline{
 			lveDevice,

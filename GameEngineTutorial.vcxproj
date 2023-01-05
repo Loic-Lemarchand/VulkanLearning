@@ -196,6 +196,8 @@
     <ClInclude Include="GameEngineTutorial.h" />
     <ClInclude Include="GraphicEngine\Include\device.h" />
     <ClInclude Include="GraphicEngine\Include\game_object.h" />
+    <ClInclude Include="GraphicEngine\Include\renderer.h" />
+    <ClInclude Include="GraphicEngine\Include\simple_render_system.h" />
     <ClInclude Include="GraphicEngine\Include\swap_chain.h" />
     <ClInclude Include="GraphicEngine\Include\pipeline.h" />
     <ClInclude Include="GraphicEngine\Include\model.h" />
@@ -208,6 +210,8 @@
     <ClCompile Include="GameEngineTutorial.cpp" />
     <ClCompile Include="GraphicEngine\Source\device.cpp" />
     <ClCompile Include="GraphicEngine\Source\game_object.cpp" />
+    <ClCompile Include="GraphicEngine\Source\renderer.cpp" />
+    <ClCompile Include="GraphicEngine\Source\simple_render_system.cpp" />
     <ClCompile Include="GraphicEngine\Source\swap_chain.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GraphicEngine\Source\window.cpp" />
