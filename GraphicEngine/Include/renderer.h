@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../GraphicEngine/Include/window.h"
-#include "../GraphicEngine/Include/pipeline.h"
-#include "../GraphicEngine/Include/swap_chain.h"
+#include "window.h"
+#include "pipeline.h"
+#include "swap_chain.h"
 
 
 
@@ -25,6 +25,7 @@ namespace Lve {
 		Renderer& operator=(const Renderer&) = delete;
 
 		VkRenderPass getSwapChainRenderPass() const { return lveSwapChain->getRenderPass(); }
+		float getAspectRatio() const { return lveSwapChain->extentAspectRatio(); }
 		bool isFrameInProgress() const { return isFrameStarted; }
 
 		VkCommandBuffer getCurrentCommandBuffer() const { 
@@ -50,7 +51,7 @@ namespace Lve {
 		void freeCommandBuffers();
 		void recreateSwapChain();
 		
-		void renderGameObjects(VkCommandBuffer commendBuffer);
+		//void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<GameObject>& gameObjects, const Camera& camera);
 
 		Window& lveWindow;
 		Device& lveDevice;

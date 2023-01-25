@@ -54,6 +54,15 @@
     <ClInclude Include="GraphicEngine\Include\simple_render_system.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicEngine\Include\camera.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEngine\Include\keyboard_movement_controller.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\tinyobjloader\tiny_obj_loader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineTutorial.cpp">
@@ -89,6 +98,12 @@
     <ClCompile Include="GraphicEngine\Source\simple_render_system.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicEngine\Source\camera.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEngine\Source\keyboard_movement_controller.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameEngineTutorial.rc">
@@ -106,5 +121,13 @@
   <ItemGroup>
     <CustomBuild Include="shaders\simple_shader.frag" />
     <CustomBuild Include="shaders\simple_shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Models\colored_cube.obj" />
+    <Object Include="Models\cube.obj" />
+    <Object Include="Models\flat_vase.obj" />
+    <Object Include="Models\smooth_vase.obj" />
+    <Object Include="Models\12221_Cat_v1_l3.obj" />
+    <Object Include="Models\maxwell.obj" />
   </ItemGroup>
 </Project>

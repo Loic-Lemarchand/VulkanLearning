@@ -29,7 +29,7 @@ namespace Lve {
 	private:
 		void loadGameObjects();
 
-		Window lveWindow{ WIDTH, HEIGHT, "Vulkan !!!" };
+		Window lveWindow{ WIDTH, HEIGHT, "Maxwell the cat" };
 		Device lveDevice{lveWindow};
 		std::vector<GameObject> gameObjects;
 		Renderer lveRenderer{ lveWindow, lveDevice };
