@@ -94,7 +94,7 @@ class SwapChain {
 
 ////This file's code is from Brendan Galea's vulkan tutorial
 // 
-// tutorial05 - Google Drive. (s. d.). https://drive.google.com/drive/folders/1X0wUwujKw8OH2Z18OENadX0XBKWfU50w
+// tutorial05 - GoogleÂ Drive. (s. d.). https://drive.google.com/drive/folders/1X0wUwujKw8OH2Z18OENadX0XBKWfU50w
 // 
 //(2021, 14 january). Swap Chain Overview - Vulkan Game Engine Tutorial 05 part 1. https://www.youtube.com/watch?v=IUYH74MqxOA    
 // 

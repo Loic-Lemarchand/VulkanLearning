@@ -178,7 +178,14 @@ namespace Lve {
 
 	std::vector<VkVertexInputAttributeDescription> Model::Vertex::getAttributeDescription()
 	{
-		std::vector<VkVertexInputAttributeDescription> attributeDescription(2);
+		std::vector<VkVertexInputAttributeDescription> attributeDescription{};
+		attributeDescription.push_back({0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, position)});
+		attributeDescription.push_back({1, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, color)});
+		attributeDescription.push_back({2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, normal)});
+		attributeDescription.push_back({3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, uv)});
+
+		
+		
 		attributeDescription[0].binding = 0;
 		attributeDescription[0].location = 0;
 		attributeDescription[0].format = VK_FORMAT_R32G32B32_SFLOAT;
@@ -228,19 +235,13 @@ namespace Lve {
 						attrib.vertices[3 * index.vertex_index + 2],
 					};
 
-					auto colorIndex = 3 * index.vertex_index + 2;
-					if (colorIndex < attrib.colors.size())
-					{
-						vertex.color = {
-						attrib.colors[colorIndex - 2],
-						attrib.colors[colorIndex - 1],
-						attrib.colors[colorIndex - 0],
-						};
-					}
-					else
-					{
-						vertex.color = { 1.f, 1.f, 1.f };
-					}
+					vertex.color = {
+						attrib.colors[3 * index.vertex_index + 0],
+						attrib.colors[3 * index.vertex_index + 1],
+						attrib.colors[3 * index.vertex_index + 2],
+					};
+
+					
 				}
 
 				

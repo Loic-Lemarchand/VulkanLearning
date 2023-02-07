@@ -62,11 +62,12 @@ namespace Lve {
 			//camera.setOrthographicProjection(-aspect, aspect, -1, 1, -1, 1);
 			camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
 
+			
 			gameObjects[0].transform.rotation.y += 0.002f;
-
+			/*
 			gameObjects[0].transform.translation.y = sin(frameTime)/2;
 			gameObjects[0].transform.translation.x = cos(frameTime)/2;
-
+			*/
 			
 			if (auto commandBuffer = lveRenderer.beginFrame())
 			{
