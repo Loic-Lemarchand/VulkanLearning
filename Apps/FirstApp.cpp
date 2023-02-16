@@ -8,17 +8,25 @@
 #include <array>
 #include <chrono>
 #include <cassert>
+#include <numeric>s
 
 // libs
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
+#include "../GraphicEngine/Include/buffer.h"
 #include <glm/gtc/constants.hpp>
 
 
 
 
 namespace Lve {
+
+	struct GlobalUbo
+	{
+		glm::mat4 projectionView{1.f};
+		glm::vec3 lightDirection = glm::normalize(glm::vec3{1.f, -3.f, -1.f});
+	};
 
 
 	FirstApp::FirstApp()
@@ -31,6 +39,21 @@ namespace Lve {
 
 	void FirstApp::run()
 	{
+		auto minOffsetAlignement = std::lcm(
+		lveDevice.properties.limits.minUniformBufferOffsetAlignment,
+		lveDevice.properties.limits.nonCoherentAtomSize);
+		
+		Buffer globalUboBuffer{
+			lveDevice,
+			sizeof(GlobalUbo),
+			SwapChain::MAX_FRAMES_IN_FLIGHT,
+			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+			minOffsetAlignement,
+		};
+
+		globalUboBuffer.map();
+		
 		SimpleRenderSystem simpleRenderSystem{ lveDevice, lveRenderer.getSwapChainRenderPass() };
 		Camera camera{};
 
@@ -64,15 +87,30 @@ namespace Lve {
 
 			
 			gameObjects[0].transform.rotation.y += 0.002f;
-			/*
-			gameObjects[0].transform.translation.y = sin(frameTime)/2;
-			gameObjects[0].transform.translation.x = cos(frameTime)/2;
-			*/
+			
+			/*gameObjects[0].transform.translation.y = sin(frameTime)/2;
+			gameObjects[0].transform.translation.x = cos(frameTime)/2;*/
+			
 			
 			if (auto commandBuffer = lveRenderer.beginFrame())
 			{
+				int frameIndex = lveRenderer.getFrameIndex();
+				FrameInfo frameInfo{
+				frameIndex,
+				frameTime,
+				commandBuffer,
+				camera};
+				
+				//update
+				GlobalUbo ubo{};
+				ubo.projectionView = camera.getProjection() * camera.getView();
+				globalUboBuffer.writeToIndex(&ubo, frameIndex);
+				globalUboBuffer.flushIndex(frameIndex);
+
+
+				//Render
 				lveRenderer.beginSwapChainRenderPass(commandBuffer);
-				simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
+				simpleRenderSystem.renderGameObjects(frameInfo, gameObjects);
 				lveRenderer.endSwapChainRenderPass(commandBuffer);
 				lveRenderer.endFrame();
 			}
