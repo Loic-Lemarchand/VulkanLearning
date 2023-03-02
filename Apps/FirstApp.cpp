@@ -139,6 +139,7 @@ namespace Lve {
 				GlobalUbo ubo{};
 				ubo.projection= camera.getProjection() ;
 				ubo.view= camera.getView() ;
+				ubo.inverseView = camera.getInverseView();
 				pointLightSystem.update(frameInfo, ubo);
 
 				uboBuffers[frameIndex]->writeToBuffer(&ubo);
@@ -159,6 +160,7 @@ namespace Lve {
 	
 	void FirstApp::loadGameObjects()
 	{
+		//maxwell
 		std::shared_ptr<Model> lveModel = Model::createModelFromFile(lveDevice, "Models/maxwell.obj");
 
 
@@ -168,7 +170,17 @@ namespace Lve {
 		gameObj.transform.scale = { .05f, .05f, .05f };
 		
 		gameObjects.emplace(gameObj.getId(),std::move(gameObj));
+
+		//vase
+		lveModel = Model::createModelFromFile(lveDevice, "Models/smooth_vase.obj");
+		auto vase = GameObject::createGameObject();
+		vase.model = lveModel;
+		vase.transform.translation = { -2.f, 0.5f, -1.f };
+		vase.transform.scale = { 5.f, 5.f, 5.f };
 		
+		gameObjects.emplace(vase.getId(), std::move(vase));
+
+		//ground
 		lveModel = Model::createModelFromFile(lveDevice, "Models/quad.obj");
 		auto floor = GameObject::createGameObject();
 		floor.model = lveModel;
