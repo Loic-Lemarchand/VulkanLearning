@@ -1,10 +1,10 @@
 #pragma once
 
-#include "camera.h"
-#include "pipeline.h"
-#include "device.h"
-#include "game_object.h"
-#include "frame_info.h"
+#include "../camera.h"
+#include "../pipeline.h"
+#include "../device.h"
+#include "../game_object.h"
+#include "../frame_info.h"
 
 
 
@@ -19,16 +19,16 @@ namespace Lve {
 	{
 	public:
 
-		SimpleRenderSystem(Device &device, VkRenderPass renderPass);
+		SimpleRenderSystem(Device &device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 		~SimpleRenderSystem();
 
 		SimpleRenderSystem(const SimpleRenderSystem&) = delete;
 		SimpleRenderSystem& operator=(const SimpleRenderSystem&) = delete;
-		void renderGameObjects(FrameInfo &frameInfo, std::vector<GameObject> &gameObjects);
+		void renderGameObjects(FrameInfo &frameInfo);
 
 		
 	private:
-		void createPipelineLayout();
+		void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 		void createPipeline(VkRenderPass renderPass);
 		
 

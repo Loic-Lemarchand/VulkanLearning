@@ -4,6 +4,7 @@
 #include "../GraphicEngine/Include/device.h"
 #include "../GraphicEngine/Include/game_object.h"
 #include "../GraphicEngine/Include/renderer.h"
+#include "../GraphicEngine/Include/descriptors.h"
 
 
 //std
@@ -31,9 +32,15 @@ namespace Lve {
 
 		Window lveWindow{ WIDTH, HEIGHT, "Maxwell the cat" };
 		Device lveDevice{lveWindow};
-		std::vector<GameObject> gameObjects;
+		
 		Renderer lveRenderer{ lveWindow, lveDevice };
 
+	// Note : Order of declaration matters
+		std::unique_ptr<DescriptorPool> globalPool{};
+		GameObject::Map gameObjects;
+
+
+		
 	/*	Pipeline lvePipeline{
 			lveDevice,
 			"shaders/vert.spv",

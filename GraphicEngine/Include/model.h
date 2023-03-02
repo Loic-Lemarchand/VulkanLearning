@@ -1,8 +1,7 @@
 #pragma once
 
-#include "device.h"
-#include "buffer.h"
-
+#include "../Include/buffer.h"
+#include "../Include/device.h"
 
 // libs
 #define GLM_FORCE_RADIANS
@@ -14,30 +13,24 @@
 #include <vector>
 
 namespace Lve {
-
-	//The purpose of this class is to take vertex data and allocate the memory and copy the data over to our device's GPU so it can be rendred efficiently
-	//We go for Interlieving position with color attribute
-	class Model
-	{
+	class Model {
 	public:
-		struct Vertex
-		{
-			glm::vec3 position;
-			glm::vec3 color;
+		struct Vertex {
+			glm::vec3 position{};
+			glm::vec3 color{};
 			glm::vec3 normal{};
 			glm::vec2 uv{};
 
-			static std::vector<VkVertexInputBindingDescription> getBindingDescription();
-			static std::vector<VkVertexInputAttributeDescription> getAttributeDescription();
+			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
+			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 
-			bool operator==(const Vertex& other) const
-			{
-				return position == other.position && color == other.color && normal == other.normal && uv == other.uv;
+			bool operator==(const Vertex &other) const {
+				return position == other.position && color == other.color && normal == other.normal &&
+					   uv == other.uv;
 			}
 		};
 
-		struct Builder
-		{
+		struct Builder {
 			std::vector<Vertex> vertices{};
 			std::vector<uint32_t> indices{};
 
@@ -47,10 +40,11 @@ namespace Lve {
 		Model(Device &device, const Model::Builder &builder);
 		~Model();
 
-		static std::unique_ptr<Model> createModelFromFile(Device &device, const std::string &filepath);
+		Model(const Model &) = delete;
+		Model &operator=(const Model &) = delete;
 
-		Model(const Model&) = delete;
-		Model& operator=(const Model&) = delete;
+		static std::unique_ptr<Model> createModelFromFile(
+			Device &device, const std::string &filepath);
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);
@@ -58,18 +52,14 @@ namespace Lve {
 	private:
 		void createVertexBuffers(const std::vector<Vertex> &vertices);
 		void createIndexBuffers(const std::vector<uint32_t> &indices);
-		
-		Device& lveDevice;
+
+		Device &lveDevice;
 
 		std::unique_ptr<Buffer> vertexBuffer;
 		uint32_t vertexCount;
 
-
 		bool hasIndexBuffer = false;
 		std::unique_ptr<Buffer> indexBuffer;
 		uint32_t indexCount;
-
-
 	};
-}
-
+}  // namespace lve
