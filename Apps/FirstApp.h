@@ -27,6 +27,8 @@ namespace Lve {
 		FirstApp& operator=(const FirstApp&) = delete;
 
 		void run();
+		void CreateGameObjectFromModel(std::shared_ptr<Model>& lveModel, const std::string &filepath);
+
 	private:
 		void loadGameObjects();
 

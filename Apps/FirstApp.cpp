@@ -157,37 +157,43 @@ namespace Lve {
 
 		vkDeviceWaitIdle(lveDevice.device());
 	}
-	
-	void FirstApp::loadGameObjects()
+
+	void FirstApp::CreateGameObjectFromModel(std::shared_ptr<Model>& lveModel, const std::string &filepath)
 	{
-		//maxwell
-		std::shared_ptr<Model> lveModel = Model::createModelFromFile(lveDevice, "Models/maxwell.obj");
+		lveModel = Model::createModelFromFile(lveDevice, filepath);
 
 
 		auto gameObj = GameObject::createGameObject();
 		gameObj.model = lveModel;
-		gameObj.transform.translation = { 0.f, 0.f, 0.f };
+		gameObj.transform.translation = { -5.f, 0.f, 5.f };
 		gameObj.transform.scale = { .05f, .05f, .05f };
 		
 		gameObjects.emplace(gameObj.getId(),std::move(gameObj));
+	}
 
-		//vase
-		lveModel = Model::createModelFromFile(lveDevice, "Models/smooth_vase.obj");
-		auto vase = GameObject::createGameObject();
-		vase.model = lveModel;
-		vase.transform.translation = { -2.f, 0.5f, -1.f };
-		vase.transform.scale = { 5.f, 5.f, 5.f };
+	void FirstApp::loadGameObjects()
+	{
+		std::shared_ptr<Model> lveModel;
+		CreateGameObjectFromModel(lveModel, "Models/maxwell.obj");
 		
-		gameObjects.emplace(vase.getId(), std::move(vase));
 
 		//ground
 		lveModel = Model::createModelFromFile(lveDevice, "Models/quad.obj");
 		auto floor = GameObject::createGameObject();
 		floor.model = lveModel;
 		floor.transform.translation = { 0.f, .5f, 0.f };
-		floor.transform.scale = { 3.f, 1.f, 3.f };
+		floor.transform.scale = { 6.f, 1.f, 6.f };
 		
 		gameObjects.emplace(floor.getId(), std::move(floor));
+
+		//furnitures
+		lveModel = Model::createModelFromFile(lveDevice, "Models/combined.obj");
+		auto furnitures = GameObject::createGameObject();
+		furnitures.model = lveModel;
+		furnitures.transform.translation = { 0.f, .5f, 0.f };
+		furnitures.transform.scale = { -0.3f, -0.3f, -0.3f };
+		
+		gameObjects.emplace(furnitures.getId(), std::move(furnitures));
 		
 
 		
