@@ -197,12 +197,13 @@ namespace Lve {
 		
 
 		
-		/*auto pointLight = GameObject::makePointLight(0.2f);
-		gameObjects.emplace(pointLight.getId(), std::move(pointLight));*/
+		auto pointLight = GameObject::makePointLight(0.5f);
+		pointLight.transform.translation = { 0.f, -2.f, 0.f };
+		gameObjects.emplace(pointLight.getId(), std::move(pointLight));
 
 
 		// using pointLight again invalid...
-		std::vector<glm::vec3> lightColors{
+		/*std::vector<glm::vec3> lightColors{
 	      {1.f, .1f, .1f},
 		  {.1f, .1f, 1.f},
 		  {.1f, 1.f, .1f},
@@ -221,7 +222,7 @@ namespace Lve {
 				{0.f, -1.f, 0.f});
 			pointLight.transform.translation = glm::vec3(rotateLight * glm::vec4(-1.f, -1.f, -1.f, 1.f));
 			gameObjects.emplace(pointLight.getId(), std::move(pointLight));
-		}
+		}*/
 	}
 
 

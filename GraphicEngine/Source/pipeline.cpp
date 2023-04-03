@@ -9,7 +9,7 @@
 #include <stdexcept>
 
 #ifndef ENGINE_DIR
-#define ENGINE_DIR "C:/Users/loic4/Documents/01-Vulkan/VulkanGitRepos/VulkanLearning/"
+#define ENGINE_DIR "C:/Users/loic4/Documents/01-Vulkan/VulkanGitRepos/ForgeWorks/"
 #endif
 
 namespace Lve {
